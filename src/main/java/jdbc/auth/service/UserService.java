@@ -39,7 +39,7 @@ public class UserService {
 		user.setLastName(registerationForm.getLastName());
 		user.setPassword(passwordEncoder.encode(registerationForm.getPassword()));
 		user.setEmail(registerationForm.getEmail());
-
+		user.setEnabled(true);
 		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
 		return repository.save(user);
 	}

@@ -14,13 +14,12 @@ import jdbc.auth.form.UserRegisterationForm;
 import jdbc.auth.service.UserService;
 
 @RestController
-@RequestMapping("/users")
 public class UserController {
 
 	@Autowired
 	private UserService service;
 
-	@PostMapping
+	@PostMapping("signup")
 	public String register(@RequestBody UserRegisterationForm registerationForm) {
 		try {
 			User user = service.registerNewUserAccount(registerationForm);
@@ -32,7 +31,7 @@ public class UserController {
 		}
 	}
 
-	@GetMapping
+	@GetMapping("/users")
 	public List<User> users() {
 		return service.findAll();
 	}

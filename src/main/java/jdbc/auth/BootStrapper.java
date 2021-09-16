@@ -47,19 +47,32 @@ public class BootStrapper implements ApplicationListener<ContextRefreshedEvent> 
 
 		List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege);
 		createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
+		createRoleIfNotFound("ROLE_DBA", adminPrivileges);
 		createRoleIfNotFound("ROLE_USER", Arrays.asList(readPrivilege));
 
 		Role adminRole = roleRepository.findByName("ROLE_ADMIN");
-		User user = userRepository.findByEmail("admin@someorg.com");
-		if (user == null) {
-			user = new User();
-			user.setFirstName("Test");
-			user.setLastName("Test");
-			user.setPassword(passwordEncoder.encode("test"));
-			user.setEmail("admin@someorg.com");
-			user.setRoles(Arrays.asList(adminRole));
-			user.setEnabled(true);
-			userRepository.save(user);
+		User admin = userRepository.findByEmail("admin@someorg.com");
+		if (admin == null) {
+			admin = new User();
+			admin.setFirstName("Admin");
+			admin.setLastName("Head");
+			admin.setPassword(passwordEncoder.encode("test"));
+			admin.setEmail("admin@someorg.com");
+			admin.setRoles(Arrays.asList(adminRole));
+			admin.setEnabled(true);
+			userRepository.save(admin);
+		}
+		Role dbaRole = roleRepository.findByName("ROLE_DBA");
+		User dba= userRepository.findByEmail("dba@someorg.com");
+		if (dba == null) {
+			dba = new User();
+			dba.setFirstName("DB");
+			dba.setLastName("Admin");
+			dba.setPassword(passwordEncoder.encode("test"));
+			dba.setEmail("dba@someorg.com");
+			dba.setRoles(Arrays.asList(dbaRole));
+			dba.setEnabled(true);
+			userRepository.save(dba);
 		}
 
 		alreadySetup = true;
