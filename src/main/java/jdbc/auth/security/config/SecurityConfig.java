@@ -67,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						antMatchers("/login", "/register", "/signup").permitAll().
 						antMatchers("/admin/**").hasRole("ADMIN").
 						antMatchers("/users/**").hasRole("USER").
+//						antMatchers("/users/**").access("@webSecurityCustomChecks.check(authentication,request)").
 //						antMatchers("/users/**").access("hasRole('ADMIN') and hasRole('USER')").
 						antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')").
 						anyRequest().denyAll())
